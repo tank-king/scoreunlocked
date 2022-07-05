@@ -27,4 +27,8 @@ client.get_leaderboard()
 client.post_score(name='name', score=100, validation_data='<data to validate score>') 
 ```
 
-That's all you need to know for setting up a basic leaderboard
+That's all you need to know for setting up a basic leaderboard.
+
+# Advanced Tutorial
+
+[TODO]
