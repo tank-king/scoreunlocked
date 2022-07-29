@@ -1,5 +1,5 @@
 import json
-
+import threading
 import requests
 
 
@@ -102,7 +102,13 @@ class Client:
             print(f'An Error Occurred: {e}')
             return None
 
-    def post_score(self, name, score, validation_data=''):
+    def post_score(self, name, score, validation_data='', use_thread=True):
+        if use_thread:
+            # if the user choses to use thread then, create a new thread, with as target the same function called
+            # but without using thread itself, so it doesn't create an infinite thread recursion
+            posting_thread = threading.Thread(target=self.post_score, args=(name, score, validation_data, False))
+            return posting_thread.start()
+
         if self.raise_errors:
             return self._post_score(name, score, validation_data)
         else:
