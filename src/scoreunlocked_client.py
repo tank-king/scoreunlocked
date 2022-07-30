@@ -102,18 +102,19 @@ class Client:
             print(f'An Error Occurred: {e}')
             return None
 
+    def start_post_thread(self, name, score, validation_data='') -> None:
+        posting_thread = threading.Thread(target=self.post_score, args=(name, score, validation_data, False))
+        return posting_thread.start()
+
     def post_score(self, name, score, validation_data='', use_thread=True):
-        if use_thread:
-            # if the user choses to use thread then, create a new thread, with as target the same function called
-            # but without using thread itself, so it doesn't create an infinite thread recursion
-            posting_thread = threading.Thread(target=self.post_score, args=(name, score, validation_data, False))
-            return posting_thread.start()
 
         if self.raise_errors:
-            return self._post_score(name, score, validation_data)
+            return self.start_post_thread(name, score, validation_data) if use_thread \
+                else self._post_score(name, score, validation_data)
         else:
             try:
-                return self._post_score(name, score, validation_data)
+                return self.start_post_thread(name, score, validation_data) if use_thread \
+                    else self._post_score(name, score, validation_data)
             except requests.ReadTimeout:
                 return None
             except Exception as e:
