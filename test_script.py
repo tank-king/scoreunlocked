@@ -13,7 +13,7 @@ import random
 
 
 # connect the client
-client = scoreunlocked.Client()
+client = scoreunlocked.ClientThread()
 client.connect("fks124-dev", "test")
 
 # initialize pygame stuff
@@ -32,7 +32,7 @@ while True:
             # post a new random score
             if event.key == pg.K_p:
                 # this one works without pausing the program
-                client.post_score(name="dev", score=random.randint(0, 100))
+                client.post_score(name="dev2", score=random.randint(0, 100))
 
                 # this one does pause the program
                 # client.post_score(name="dev", score=random.randint(0, 100), use_thread=False)
