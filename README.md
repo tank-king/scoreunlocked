@@ -24,7 +24,7 @@ client.connect('developer_name', 'leaderboard_name')
 client.get_leaderboard()
 
 # to post a score to the server
-client.post_score(name='name', score=100, validation_data='<data to validate score>') 
+client.post_score(name='name', score=100) 
 ```
 
 That's all you need to know for setting up a basic leaderboard.
